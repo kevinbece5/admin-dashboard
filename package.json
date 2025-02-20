@@ -27,6 +27,7 @@
     "drizzle-kit": "^0.22.8",
     "drizzle-orm": "^0.31.4",
     "drizzle-zod": "^0.5.1",
+    "jose": "^5.10.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.400.0",
     "mock-aws-s3": "^4.0.2",
