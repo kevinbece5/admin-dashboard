@@ -26,7 +26,6 @@ export async function User() {
             width={36}
             height={36}
             alt="Avatar"
-            className="overflow-hidden rounded-full"
           />
         </Button>
       </DropdownMenuTrigger>
