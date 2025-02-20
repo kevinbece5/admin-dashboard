@@ -9,7 +9,8 @@ import {
   integer,
   timestamp,
   pgEnum,
-  serial
+  serial,
+  varchar
 } from 'drizzle-orm/pg-core';
 import { count, eq, ilike } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
@@ -26,6 +27,13 @@ export const products = pgTable('products', {
   price: numeric('price', { precision: 10, scale: 2 }).notNull(),
   stock: integer('stock').notNull(),
   availableAt: timestamp('available_at').notNull()
+});
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  password: varchar('password').notNull()
 });
 
 export type SelectProduct = typeof products.$inferSelect;
@@ -65,6 +73,19 @@ export async function getProducts(
     newOffset,
     totalProducts: totalProducts[0].count
   };
+}
+
+export async function insertUser(password: string, username: string) {
+  await db.insert(users).values({
+    password,
+    name: username,
+    email: username
+  });
+}
+
+export async function findUserByEmail(email: string) {
+  const user = await db.select().from(users).where(eq(users.email, email));
+  return user;
 }
 
 export async function deleteProductById(id: number) {
