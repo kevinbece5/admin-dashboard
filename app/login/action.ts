@@ -4,6 +4,7 @@ import { z } from 'zod';
 import {
   createSession,
   deleteSession,
+  getUser,
   login as loginUser
 } from '../../lib/sessions';
 
