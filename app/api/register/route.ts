@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
   let flag = 1; //Declaring a flag
 
   const { username, password } = await request.json();
+
   try {
     const data = await findUserByEmail(username); //Checking if user already exists
 
@@ -36,6 +37,14 @@ export async function POST(request: NextRequest) {
 
         //Inserting data into the database
 
+        if (typeof user.password !== 'string') {
+          return new NextResponse(
+            JSON.stringify({
+              error: 'Error hasing password'
+            }),
+            { status: 500 }
+          );
+        }
         await insertUser(user.password, user.username);
 
         if (err) {
